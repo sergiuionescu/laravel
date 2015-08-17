@@ -1,15 +1,16 @@
 DEPENDENCIES
   composer
   cron
+  git
   lamp
     git: git://github.com/sergiuionescu/lamp.git
     revision: d14f48656100dc32f6eb214255dffc9fe8c2ac2a
+  laravel
+    path: .
+    metadata: true
   php
     git: git://github.com/sergiuionescu/php.git
     revision: ee383e8b4858e69f0719085ae79f4dd3d98aa425
-  symfony
-    path: .
-    metadata: true
 
 GRAPH
   apache2 (3.1.0)
@@ -21,6 +22,12 @@ GRAPH
     php (>= 0.0.0)
     windows (>= 0.0.0)
   cron (1.6.1)
+  dmg (2.2.2)
+  git (4.3.3)
+    build-essential (>= 0.0.0)
+    dmg (>= 0.0.0)
+    windows (>= 0.0.0)
+    yum-epel (>= 0.0.0)
   iis (4.1.1)
     windows (>= 1.34.6)
   lamp (0.2.1)
@@ -31,6 +38,12 @@ GRAPH
     php (>= 0.0.0)
     sendmail (>= 0.0.0)
     vim (>= 0.0.0)
+  laravel (0.1.0)
+    composer (>= 0.0.0)
+    cron (>= 0.0.0)
+    git (>= 0.0.0)
+    lamp (>= 0.0.0)
+    php (>= 0.0.0)
   line (0.6.2)
   mysql (6.1.0)
     smf (>= 0.0.0)
@@ -50,11 +63,6 @@ GRAPH
   sendmail (0.1.0)
   smf (2.2.7)
     rbac (>= 1.0.1)
-  symfony (0.1.1)
-    composer (>= 0.0.0)
-    cron (>= 0.0.0)
-    lamp (>= 0.0.0)
-    php (>= 0.0.0)
   sysctl (0.6.2)
     ohai (>= 0.0.0)
   vim (1.1.2)
