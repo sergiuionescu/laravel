@@ -1,0 +1,22 @@
+{
+    "name": "laravel",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Laravel environment configuration.",
+    "run_list": [
+        "recipe[laravel]",
+        "recipe[lamp::nfs]",
+        "recipe[lamp::xdebug]"
+    ],
+    "default_attributes": {
+        "lamp": {
+            "xdebug": {
+                "directives": {
+                    "remote_host": "10.0.2.2",
+                    "remote_enable": 0,
+                    "remote_autostart": 1
+                }
+            }
+        }
+    }
+}
