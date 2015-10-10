@@ -2,6 +2,9 @@ laravel
 =======
 
 Laravel environment with Berkshelf Chef and Vagrant support
+* Master: [![Build Status](https://api.travis-ci.org/sergiuionescu/laravel.svg?branch=master)](http://travis-ci.org/sergiuionescu/laravel)
+* Dev: [![Build Status](https://api.travis-ci.org/sergiuionescu/laravel.svg?branch=dev)](http://travis-ci.org/sergiuionescu/laravel)
+
 
 
 Requirements
