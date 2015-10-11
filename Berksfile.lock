@@ -41,7 +41,7 @@ GRAPH
     php (>= 0.0.0)
     sendmail (>= 0.0.0)
     vim (>= 0.0.0)
-  laravel (0.1.0)
+  laravel (0.1.1)
     composer (>= 0.0.0)
     cron (>= 0.0.0)
     git (>= 0.0.0)
