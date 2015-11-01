@@ -5,6 +5,7 @@
     "description": "Laravel environment configuration.",
     "run_list": [
         "recipe[laravel]",
+        "recipe[laravel::test]",
         "recipe[lamp::nfs]",
         "recipe[lamp::xdebug]"
     ],
