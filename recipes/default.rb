@@ -5,19 +5,15 @@
 # Copyright (c) 2014 The Authors, All Rights Reserved.
 
 include_recipe 'lamp'
-include_recipe 'php::module_gd'
-include_recipe 'cron'
-include_recipe "composer"
 
+%w{php5-json php5-curl}.each do |pkg|
+  package pkg do
+    action :install
+  end
+end
 
-# Start laravel install
-laravel_app "laravel" do
-  action :create
+execute "laravel-installer" do
+  command "composer global require 'laravel/installer'"
+  not_if "ls ~/.composer/vendor/bin/laravel"
 end
-web_app "laravel-test" do
-  template "laravel.conf.erb"
-  docroot "/var/www/laravel/public"
-  server_name 'laravel.local'
-  server_aliases []
-end
-#End laravel install
+
