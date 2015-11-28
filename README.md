@@ -1,39 +1,62 @@
 laravel
 =======
-
 Laravel environment with Berkshelf Chef and Vagrant support
 * Master: [![Build Status](https://api.travis-ci.org/sergiuionescu/laravel.svg?branch=master)](http://travis-ci.org/sergiuionescu/laravel)
 * Dev: [![Build Status](https://api.travis-ci.org/sergiuionescu/laravel.svg?branch=dev)](http://travis-ci.org/sergiuionescu/laravel)
 
+- builds a [lamp](https://github.com/sergiuionescu/lamp) environment
+- exposes a LWRP that allows setting up one or multiple laravel applications
 
+Requirements(prod)
+------------------
+* chef-solo: https://downloads.chef.io/chef-client/
+* berkshelf: http://berkshelf.com/
 
-Requirements
-------------
-* chef-dk: 0.3.0
-* chef-solo: tested on 11.8.2
-* berkshelf: tested on 3.1.5
+Requirements(dev)
+-----------------
+* vagrant: https://www.vagrantup.com/downloads.html
+* chef dk: https://downloads.getchef.com/chef-dk/
+* virtualbox: https://www.virtualbox.org/wiki/Downloads
 
-Extra development requirements
------------------------------
-* vagrant >= 1.5.2
-* chef dk >= 0.2.0
-* virtualbox: tested on 4.1.14
-* vagrant-berkshelf (vagrant plugin install vagrant-berkshelf) - Optional, kitchen converge can be used to launch the vm instead of vagrant up
+Testing the dev environment
+---------------------------
+- Clone the repository
+- Go to the project root
+- Run kitchen converge
 
-* Note: there is currently an issue with running provision a second time with vagrant-berkshelf 4.0.0. See https://github.com/berkshelf/vagrant-berkshelf/issues/237
+Recipes
+-------
+- default - installs basic services and the laravel installer
+- test - installs laravel under '/var/www/laravel'
 
-Resources links
----------------
-* Chef DK(includes Berkshelf): https://downloads.getchef.com/chef-dk/
-* Vagrant: https://www.vagrantup.com/downloads.html
-* Virtualbox: https://www.virtualbox.org/wiki/Downloads
+LWRP
+----
 
+laravel_app
+-----------
+Create/delete a laravel application
+
+Actions
+-------
+- :create - installs a new laravel application via composer
+- :delete - deletes the application folder
+
+Attribute parameters
+--------------------
+- app_name: name attribute. Determines the installation path relative to '/var/www'.
+
+```
+#install the laravel application under '/var/www/laravel'
+laravel_app "laravel" do
+  action :create
+end
+```
 
 How to test dev environment
 ---------------------------
 - Clone the repository
 - Go to the project root
-- Run "kitchen converge default-ubuntu-1404" (or "vagrant up" if you wish to use vagrant-berkshelf)
+- Run "kitchen converge"
 
 Customizing your dev environment
 --------------------------------
@@ -125,7 +148,3 @@ Source mounts
 -------------
 
 The project root directory is mounted inside the dev virtual machine directory under the /vagrant path when using both kitchen converge or vagrant up to launch the machine.
-
-Todos
------
-- Expose an interface for creating source symlinks
