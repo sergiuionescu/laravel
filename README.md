@@ -7,6 +7,8 @@ Laravel environment with Berkshelf Chef and Vagrant support
 - builds a [lamp](https://github.com/sergiuionescu/lamp) environment
 - exposes a LWRP that allows setting up one or multiple laravel applications
 
+Php7 support via ppa:ondrej/php.
+
 Requirements(prod)
 ------------------
 * chef-solo: https://downloads.chef.io/chef-client/
@@ -24,6 +26,12 @@ Testing the dev environment
 - Go to the project root
 - Run kitchen converge
 
+How to test dev environment
+---------------------------
+- Clone the repository
+- Go to the project root
+- Run "kitchen converge"
+
 Recipes
 -------
 - default - installs basic services and the laravel installer
@@ -35,15 +43,21 @@ LWRP
 laravel_app
 -----------
 Create/delete a laravel application
+Ex:
+```ruby
+laravel_app "laravel" do
+  action :create
+end
+```
 
 Actions
 -------
-- :create - installs a new laravel application via composer
-- :delete - deletes the application folder
+- `:create` - installs a new laravel application via composer
+- `:delete` - deletes the application folder
 
 Attribute parameters
 --------------------
-- app_name: name attribute. Determines the installation path relative to '/var/www'.
+- `app_name:` name attribute. Determines the installation path relative to '/var/www'.
 
 ```
 #install the laravel application under '/var/www/laravel'
@@ -51,12 +65,6 @@ laravel_app "laravel" do
   action :create
 end
 ```
-
-How to test dev environment
----------------------------
-- Clone the repository
-- Go to the project root
-- Run "kitchen converge"
 
 Customizing your dev environment
 --------------------------------
@@ -119,6 +127,58 @@ Configure your mysql dev server credentials.
 ```
 Set the xdebug configuration, all xdebug configuration directives are supported here. In this example xdebug is connecting back on the vm's NAT interface, 
 configured to start the debugging session automatically but disabled. You need to enable it manually by editing your xdebug.ini.
+
+Sample role with php7 support.
+
+Php 7 is supported via ppa. The are a number of overwrite attributes that need to be set as long with a path for the php cookbook to disable pear and pecl update.
+```json
+{
+    "name": "laravel",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Laravel environment configuration.",
+    "run_list": [
+        "recipe[laravel]",
+        "recipe[laravel::test]",
+        "recipe[lamp::nfs]",
+        "recipe[lamp::xdebug]"
+    ],
+    "default_attributes": {
+        "lamp": {
+            "xdebug": {
+                "directives": {
+                    "remote_host": "10.0.2.2",
+                    "remote_enable": 0,
+                    "remote_autostart": 1
+                }
+            }
+        }
+    },
+    "override_attributes": {
+        "php": {
+            "version": "7.0",
+            "conf_dir": "/etc/php/7.0/cli",
+            "packages": [
+                "php7.0-cgi",
+                "php7.0",
+                "php7.0-dev",
+                "php7.0-cli",
+                "php7.0-json",
+                "php7.0-curl",
+                "php7.0-mbstring",
+                "php-pear"
+            ],
+            "mysql": {
+                "package": "php7.0-mysql"
+            },
+            "fpm_package": "php7.0-fpm",
+            "fpm_pooldir": "/etc/php/7.0/fpm/pool.d",
+            "fpm_service": "php7.0-fpm",
+            "fpm_default_conf": "/etc/php/7.0/fpm/pool.d/www.conf"
+        }
+    }
+}
+```
 
 Customizing the role in production
 ----------------------------------
