@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Laravel by sergiuionescu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Laravel</h1>
+      <h2 class="project-tagline">Laravel environment with Berkshelf Chef and Vagrant support </h2>
+      <a href="https://github.com/sergiuionescu/laravel" class="btn">View on GitHub</a>
+      <a href="https://github.com/sergiuionescu/laravel/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/sergiuionescu/laravel/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="laravel" class="anchor" href="#laravel" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>laravel</h1>
+
+<p>Laravel environment with Berkshelf Chef and Vagrant support</p>
+
+<ul>
+<li>Master: <a href="http://travis-ci.org/sergiuionescu/laravel"><img src="https://api.travis-ci.org/sergiuionescu/laravel.svg?branch=master" alt="Build Status"></a>
+</li>
+<li><p>Dev: <a href="http://travis-ci.org/sergiuionescu/laravel"><img src="https://api.travis-ci.org/sergiuionescu/laravel.svg?branch=dev" alt="Build Status"></a></p></li>
+<li><p>builds a <a href="https://github.com/sergiuionescu/lamp">lamp</a> environment</p></li>
+<li>exposes a LWRP that allows setting up one or multiple laravel applications</li>
+</ul>
+
+<p>Php7 support via ppa:ondrej/php.</p>
+
+<h2>
+<a id="requirementsprod" class="anchor" href="#requirementsprod" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements(prod)</h2>
+
+<ul>
+<li>chef-solo: <a href="https://downloads.chef.io/chef-client/">https://downloads.chef.io/chef-client/</a>
+</li>
+<li>berkshelf: <a href="http://berkshelf.com/">http://berkshelf.com/</a>
+</li>
+</ul>
+
+<h2>
+<a id="requirementsdev" class="anchor" href="#requirementsdev" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements(dev)</h2>
+
+<ul>
+<li>vagrant: <a href="https://www.vagrantup.com/downloads.html">https://www.vagrantup.com/downloads.html</a>
+</li>
+<li>chef dk: <a href="https://downloads.getchef.com/chef-dk/">https://downloads.getchef.com/chef-dk/</a>
+</li>
+<li>virtualbox: <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a>
+</li>
+</ul>
+
+<h2>
+<a id="testing-the-dev-environment" class="anchor" href="#testing-the-dev-environment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing the dev environment</h2>
+
+<ul>
+<li>Clone the repository</li>
+<li>Go to the project root</li>
+<li>Run kitchen converge</li>
+</ul>
+
+<h2>
+<a id="how-to-test-dev-environment" class="anchor" href="#how-to-test-dev-environment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to test dev environment</h2>
+
+<ul>
+<li>Clone the repository</li>
+<li>Go to the project root</li>
+<li>Run "kitchen converge"</li>
+</ul>
+
+<h2>
+<a id="recipes" class="anchor" href="#recipes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recipes</h2>
+
+<ul>
+<li>default - installs basic services and the laravel installer</li>
+<li>test - installs laravel under '/var/www/laravel'</li>
+</ul>
+
+<h2>
+<a id="lwrp" class="anchor" href="#lwrp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LWRP</h2>
+
+<h2>
+<a id="laravel_app" class="anchor" href="#laravel_app" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>laravel_app</h2>
+
+<p>Create/delete a laravel application
+Ex:</p>
+
+<div class="highlight highlight-source-ruby"><pre>laravel_app <span class="pl-s"><span class="pl-pds">"</span>laravel<span class="pl-pds">"</span></span> <span class="pl-k">do</span>
+  action <span class="pl-c1">:create</span>
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="actions" class="anchor" href="#actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Actions</h2>
+
+<ul>
+<li>
+<code>:create</code> - installs a new laravel application via composer</li>
+<li>
+<code>:delete</code> - deletes the application folder</li>
+</ul>
+
+<h2>
+<a id="attribute-parameters" class="anchor" href="#attribute-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Attribute parameters</h2>
+
+<ul>
+<li>
+<code>app_name:</code> name attribute. Determines the installation path relative to '/var/www'.</li>
+</ul>
+
+<pre><code>#install the laravel application under '/var/www/laravel'
+laravel_app "laravel" do
+  action :create
+end
+</code></pre>
+
+<h2>
+<a id="customizing-your-dev-environment" class="anchor" href="#customizing-your-dev-environment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Customizing your dev environment</h2>
+
+<p>The role used to provision the dev environment, you can create your own role to fit your needs:</p>
+
+<div class="highlight highlight-source-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>laravel<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>chef_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>role<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>json_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Chef::Role<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>description<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Laravel environment configuration.<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>run_list<span class="pl-pds">"</span></span>: [
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[laravel]<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[lamp::nfs]<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[lamp::xdebug]<span class="pl-pds">"</span></span>
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>default_attributes<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>lamp<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>xdebug<span class="pl-pds">"</span></span>: {
+                <span class="pl-s"><span class="pl-pds">"</span>directives<span class="pl-pds">"</span></span>: {
+                    <span class="pl-s"><span class="pl-pds">"</span>remote_host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>10.0.2.2<span class="pl-pds">"</span></span>,
+                    <span class="pl-s"><span class="pl-pds">"</span>remote_enable<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>,
+                    <span class="pl-s"><span class="pl-pds">"</span>remote_autostart<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>
+                }
+            }
+        }
+    }
+}</pre></div>
+
+<p>Details:</p>
+
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>run_list<span class="pl-pds">"</span></span>: [
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[laravel]<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[lamp::nfs]<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[lamp::xdebug]<span class="pl-pds">"</span></span>
+    ],</pre></div>
+
+<p>The recipes lamp::nfs and lamp::xdebug are only required for the dev environment to expose a nfs share of your /var/www directory and install the xdebug extension for php.</p>
+
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>mysql<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>server_root_password<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>server_repl_password<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>server_debian_password<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>
+}</pre></div>
+
+<p>Configure your mysql dev server credentials.</p>
+
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>lamp<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>xdebug<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>directives<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>remote_host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>10.0.2.2<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>remote_enable<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>remote_autostart<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>
+        }
+    }
+}</pre></div>
+
+<p>Set the xdebug configuration, all xdebug configuration directives are supported here. In this example xdebug is connecting back on the vm's NAT interface, 
+configured to start the debugging session automatically but disabled. You need to enable it manually by editing your xdebug.ini.</p>
+
+<p>Sample role with php7 support.</p>
+
+<p>Php 7 is supported via ppa. The are a number of overwrite attributes that need to be set as long with a path for the php cookbook to disable pear and pecl update.</p>
+
+<div class="highlight highlight-source-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>laravel<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>chef_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>role<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>json_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Chef::Role<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>description<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Laravel environment configuration.<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>run_list<span class="pl-pds">"</span></span>: [
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[laravel]<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[laravel::test]<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[lamp::nfs]<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[lamp::xdebug]<span class="pl-pds">"</span></span>
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>default_attributes<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>lamp<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>xdebug<span class="pl-pds">"</span></span>: {
+                <span class="pl-s"><span class="pl-pds">"</span>directives<span class="pl-pds">"</span></span>: {
+                    <span class="pl-s"><span class="pl-pds">"</span>remote_host<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>10.0.2.2<span class="pl-pds">"</span></span>,
+                    <span class="pl-s"><span class="pl-pds">"</span>remote_enable<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>,
+                    <span class="pl-s"><span class="pl-pds">"</span>remote_autostart<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>
+                }
+            }
+        }
+    },
+    <span class="pl-s"><span class="pl-pds">"</span>override_attributes<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>php<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>version<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>7.0<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>conf_dir<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>/etc/php/7.0/cli<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>packages<span class="pl-pds">"</span></span>: [
+                <span class="pl-s"><span class="pl-pds">"</span>php7.0-cgi<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>php7.0<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>php7.0-dev<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>php7.0-cli<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>php7.0-json<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>php7.0-curl<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>php7.0-mbstring<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>php-pear<span class="pl-pds">"</span></span>
+            ],
+            <span class="pl-s"><span class="pl-pds">"</span>mysql<span class="pl-pds">"</span></span>: {
+                <span class="pl-s"><span class="pl-pds">"</span>package<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>php7.0-mysql<span class="pl-pds">"</span></span>
+            },
+            <span class="pl-s"><span class="pl-pds">"</span>fpm_package<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>php7.0-fpm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>fpm_pooldir<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>/etc/php/7.0/fpm/pool.d<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>fpm_service<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>php7.0-fpm<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>fpm_default_conf<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>/etc/php/7.0/fpm/pool.d/www.conf<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<h2>
+<a id="customizing-the-role-in-production" class="anchor" href="#customizing-the-role-in-production" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Customizing the role in production</h2>
+
+<p>An example role for production would be the following:</p>
+
+<div class="highlight highlight-source-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Laravel<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>chef_type<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>role<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>json_class<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Chef::Role<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>description<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Laravel environment configuration.<span class="pl-pds">"</span></span>,
+    <span class="pl-s"><span class="pl-pds">"</span>run_list<span class="pl-pds">"</span></span>: [
+        <span class="pl-s"><span class="pl-pds">"</span>recipe[laravel]<span class="pl-pds">"</span></span>
+    ],
+    <span class="pl-s"><span class="pl-pds">"</span>default_attributes<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>mysql<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>server_root_password<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>supersecretpassword<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>server_repl_password<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>supersecretpassword<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>server_debian_password<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>supersecretpassword<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<p>Notice that you can drop the dependencies on nfs and xdebug, you should also set a more secure password for your mysql server.</p>
+
+<h2>
+<a id="source-mounts" class="anchor" href="#source-mounts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Source mounts</h2>
+
+<p>The project root directory is mounted inside the dev virtual machine directory under the /vagrant path when using both kitchen converge or vagrant up to launch the machine.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/sergiuionescu/laravel">Laravel</a> is maintained by <a href="https://github.com/sergiuionescu">sergiuionescu</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
